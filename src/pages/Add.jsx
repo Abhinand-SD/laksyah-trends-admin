@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { assets } from '../assets/assets'
+import {backendUrl} from '../App'
 
-const Add = () => {
+const Add = ({token}) => {
+
+   console.log(backendUrl , "sssadfffassa");
 
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
@@ -16,8 +20,39 @@ const Add = () => {
   const [sizes, setSizes] = useState([])
   const [bestseller, setBestseller] = useState(false);
 
+ 
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData()
+
+      formData.append("name", name)
+      formData.append("description", description)
+      formData.append("category", category)
+      formData.append("subCategory", subCategory)
+      formData.append("price", price)
+      formData.append("sizes", JSON.stringify(sizes))
+      formData.append("bestseller", bestseller)
+
+      image1 && formData.append("image1", image1)
+      image2 && formData.append("image2", image2)
+      image3 && formData.append("image3", image3)
+      image4 && formData.append("image4", image4)
+
+      const response = await axios.post(backendUrl+"/api/product/add", formData, {headers: {token}})
+
+      console.log(response.data)
+
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
+
   return (
-    <form className='flex flex-col w-full items-start gap-3'>
+    <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
       <div>
         <p className='mb-2'>Upload Image</p>
 
@@ -83,26 +118,26 @@ const Add = () => {
       <div>
         <p>Product Sizes</p>
         <div className='flex gap-3'>
-          <div onClick={()=> setSizes(prev => prev.includes("S") ? prev.filter(item => item !== "S") : [...prev])}>
-            <p className='bg-slate-200 px-3 py-1 cursor-pointer'>S</p>
+          <div onClick={()=> setSizes(prev => prev.includes("S") ? prev.filter(item => item !== "S") : [...prev, "S"])}>
+            <p className={`${sizes.includes("S") ? "bg-pink-100":"bg-slate-200" } px-3 py-1 cursor-pointer`}>S</p>
           </div>
-          <div onClick={()=> setSizes(prev => prev.includes("M") ? prev.filter(item => item !== "M") : [...prev])}>
-            <p className='bg-slate-200 px-3 py-1 cursor-pointer'>M</p>
+          <div onClick={()=> setSizes(prev => prev.includes("M") ? prev.filter(item => item !== "M") : [...prev, "M"])}>
+            <p className={`${sizes.includes("M") ? "bg-pink-100":"bg-slate-200" } px-3 py-1 cursor-pointer`}>M</p>
           </div>
-          <div onClick={()=> setSizes(prev => prev.includes("L") ? prev.filter(item => item !== "L") : [...prev])}>
-            <p className='bg-slate-200 px-3 py-1 cursor-pointer'>L</p>
+          <div onClick={()=> setSizes(prev => prev.includes("L") ? prev.filter(item => item !== "L") : [...prev, "L"])}>
+            <p className={`${sizes.includes("L") ? "bg-pink-100":"bg-slate-200" } px-3 py-1 cursor-pointer`}>L</p>
           </div>
-          <div onClick={()=> setSizes(prev => prev.includes("XL") ? prev.filter(item => item !== "XL") : [...prev])}>
-            <p className='bg-slate-200 px-3 py-1 cursor-pointer'>XL</p>
+          <div onClick={()=> setSizes(prev => prev.includes("XL") ? prev.filter(item => item !== "XL") : [...prev, "XL"])}>
+            <p className={`${sizes.includes("XL") ? "bg-pink-100":"bg-slate-200" } px-3 py-1 cursor-pointer`}>XL</p>
           </div>
-          <div onClick={()=> setSizes(prev => prev.includes("XXL") ? prev.filter(item => item !== "XXL") : [...prev])}>
-            <p className='bg-slate-200 px-3 py-1 cursor-pointer'>XXL</p>
+          <div onClick={()=> setSizes(prev => prev.includes("XXL") ? prev.filter(item => item !== "XXL") : [...prev, "XXL"])}>
+            <p className={`${sizes.includes("XXL") ? "bg-pink-100":"bg-slate-200" } px-3 py-1 cursor-pointer`}>XXL</p>
           </div>
         </div>
       </div>
 
       <div className='flex gap-2 mt-2'>
-        <input type='checkbox' id='bestseller' />
+        <input onChange={()=> setBestseller(prev => !prev)} checked={bestseller} type='checkbox' id='bestseller' />
         <label htmlFor='bestseller'>Add to beller</label>
       </div>
 

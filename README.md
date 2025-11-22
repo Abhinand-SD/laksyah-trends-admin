@@ -1,16 +1,122 @@
-# React + Vite
+🛠️ Admin Panel — Features & Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This Admin Panel is part of my MERN Stack E-commerce application. It provides complete control over users, categories, and products, along with advanced UI interactions such as size selection, bestseller toggle, and more.
 
-Currently, two official plugins are available:
+🚀 Admin Features
+✅ 1. Admin Authentication
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Secure admin sign-in
 
-## React Compiler
+JWT-based authentication
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Protects all admin routes
 
-## Expanding the ESLint configuration
+👥 2. User Management
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+View all users
+
+Block / Unblock users
+
+Delete users
+
+Search users
+
+🗂️ 3. Category Management
+
+Add new categories
+
+Edit categories
+
+Soft delete categories
+
+Validation for duplicate names
+
+📦 4. Product Management
+
+Add new products
+
+Edit product details
+
+Delete / Soft delete products
+
+Upload multiple images (min. 3 images)
+
+Image cropping & resizing before upload
+
+Manage:
+
+Ratings
+
+Price
+
+Stock
+
+Highlights/specs
+
+Discounts / Coupons
+
+Related product recommendations
+
+🎚️ 5. Product Size Selector
+
+Example code used in product form:
+
+<div onClick={() =>
+  setSizes(prev =>
+    prev.includes("L")
+      ? prev.filter(item => item !== "L")
+      : [...prev, "L"]
+  )
+}>
+  <p className="bg-slate-200 px-3 py-1 cursor-pointer">L</p>
+</div>
+
+
+✔ Adds/removes sizes dynamically
+✔ Fully controlled React state
+
+⭐ 6. Bestseller Toggle
+
+Uses a controlled checkbox:
+
+<input
+  type="checkbox"
+  id="bestseller"
+  checked={bestseller}
+  onChange={() => setBestseller(prev => !prev)}
+/>
+<label htmlFor="bestseller">Add to Bestseller</label>
+
+
+✔ Uses checked={bestseller} (required for controlled input)
+✔ Clean onChange handler
+
+🧰 Tech Stack
+
+Frontend: React.js, Tailwind CSS
+
+Backend: Node.js, Express.js
+
+Database: MongoDB
+
+Auth: JWT
+
+File Upload: Multer, Sharp (for cropping/resizing)
+
+📌 How to Run
+Clone Repository
+git clone https://github.com/yourusername/yourrepo.git
+
+Install Dependencies
+npm install
+
+Start Server
+npm start
+
+
+If you want, I can also:
+
+✅ Add screenshots
+✅ Add deployment link
+✅ Format this for full project README
+✅ Create separate sections for backend & frontend

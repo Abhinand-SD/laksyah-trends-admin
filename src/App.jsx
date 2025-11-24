@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import Login from './components/Login'
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
+export const currency = '$'
 
 function App() {
 

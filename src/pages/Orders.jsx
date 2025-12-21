@@ -8,7 +8,7 @@ import { assets } from '../assets/assets'
 const Orders = ({ token }) => {
 
   const [orders, setOrders] = useState([])
-
+  
   const fetchAllOrders = async () => {
 
     if (!token) return null;
@@ -17,7 +17,7 @@ const Orders = ({ token }) => {
       const response = await axios.post(backendUrl + '/api/order/list', {}, { headers: { token } })
 
       if (response.data.success) {
-        setOrders(response.data.orders)
+        setOrders(response.data.orders.reverse())
       } else {
         toast.error(response.data.message)
       }
@@ -67,7 +67,7 @@ const Orders = ({ token }) => {
                   })}
                 </div>
 
-                <p className='mt-3 mb-2 font-medium'>{`${order.address.fristName} ${order.address.lastName}`}</p>
+                <p className='mt-3 mb-2 font-medium'>{`${order.address.firstName} ${order.address.lastName}`}</p>
                 <div>
                   <p>{`${order.address.street}, `}</p>
                   <p>{`${order.address.city}, ${order.address.state}, ${order.address.country}, ${order.address.zipcode}`}</p>
